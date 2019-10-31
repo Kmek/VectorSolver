@@ -1,0 +1,232 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+:root {
+    --footer: #005ab9; /* a specific blue */
+    --accent: #000000; /* a black */
+}
+
+body {
+	background-color: var(--footer);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/********** Header **********/
+#header {
+	background-image: linear-gradient(#0c78eb, var(--footer)/*#0056b3*/ );
+    width: 75%;
+    max-width: 725px;
+	min-width: 500px;
+	height: 60px;
+	text-align: center;
+    padding: 25px 25px 5px 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#title {
+	color: #000000;
+	width: 100%;
+}
+
+/********** Page **********/
+#pageBackground {
+	background-color: #ffffff;
+	background-image: url("./media/grid-pattern.png");
+	background-repeat: repeat;
+}
+#page {
+	background-color: #eeeeee;
+	width: 75%;
+	max-width: 723px;
+	min-width: 500px;
+	min-height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px 25px;
+    text-align: left;
+    border-left: 1px solid var(--footer);
+    border-right: 1px solid var(--footer);
+}
+
+/********** Add Vector Button **********/
+#addVectorBtn {
+	background: none;
+	color: #000000;
+	border-radius: 25px;
+	border: 3px solid var(--footer);
+	padding: 5px 20px;
+	margin-top: 10px;
+	font-size: 16px;
+	outline: none;
+	transition-duration: 0.7s;
+}
+#addVectorBtn:hover {
+	background-color: var(--footer);
+	color: #ffffff;
+}
+
+/********** Footer **********/
+#footer{
+	background-color: var(--footer);
+	width: 100%;
+	height: 50px;
+	padding-top: 15px;
+}
+
+#footerText {
+	margin-left: 15px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	float: left;
+}
+
+#githubBtn {
+	background: none;
+	margin-right: 15px;
+	color: #ffffff;
+	border-radius: 5px;
+	border: 3px solid var(--accent);
+	float: right;
+	padding: 5px;
+	font-size: 16px;
+	outline: none;
+	transition-duration: 0.7s;
+}
+#githubBtn:hover {
+	background-color: var(--accent);
+	color: #ffffff;
+}
+
+/********** Table Properties **********/
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+th, td {
+	border-collapse: collapse;
+	padding: 10px;
+}
+
+th {
+	height: 40px;
+	color: var(--accent);
+	font-size: 20px;
+}
+
+tr {
+	border: 1px solid var(--accent);
+}
+
+tr:hover {
+	background-color: #a8a8a8;
+}
+
+
+/********** Base Components **********/
+h1, h2, h3, h4 {
+	margin: 5px 0;
+	color: var(--accent);
+}
+
+p {
+	font-size: 16px;
+	line-height: 24px;
+	/* margin: 5px 0; */
+}
+
+mark {
+	background-color: #cccccc;
+	padding: 2px 5px;
+	font-family: "Courier New", Courier, monospace;
+	border: 1px solid #ffffff;
+	border-radius: 2px;
+}
+
+ul {
+	padding: 5px;
+	list-style: none;
+}
+ul li::before {
+	width: 20px;
+	display: inline-block;
+	color: var(--accent);
+	content: "\2666";
+	font-size: 20px;
+	font-weight: bold;
+}
+li {
+	line-height: 24px;
+}
+
+button {
+	font-weight: bold;
+}
+
+hr {
+	margin: 20px 15px;
+	border-top: 2px dashed var(--accent);
+}
+
+img {
+	width: 80%;
+	margin: 5px 0 0 10%; /*5px on top, 10% on left*/
+	border-radius: 5px;
+}
+
+a {
+	text-decoration: none;
+	/* color: black; */
+	color: var(--accent);
+	font-weight: bold;
+}
+
+canvas {
+    background-color: #ffffff;
+	border-bottom: 3px solid var(--footer);
+	/* border-bottom: none; */
+	margin: 0;
+}
+
+/********** Extra Components **********/
+.shadow { /* Creates a shadow on a div or image */
+	box-shadow: 0 0 25px 2px #000000;
+}
+
+.center { /* Centers a div */
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#graphDiv {
+	background-color: #ffffff;
+	width: 500px;
+	border: 3px solid var(--footer);
+	margin-bottom: 10px;
+}
+
+#results {
+	width: 100%;
+	/* border-top: 3px solid var(--footer); */
+}
+/********** Vector **********/
+
+.lilShadow {
+	box-shadow: 0 0 20px 2px #000000;
+}
+
+.vector {
+	background: rgba(161, 54, 54, 0);
+}
+
+.colorpicker {
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+}
