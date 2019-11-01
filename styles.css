@@ -92,7 +92,6 @@ body {
 	float: right;
 	padding: 5px;
 	font-size: 16px;
-	outline: none;
 	transition-duration: 0.7s;
 }
 #githubBtn:hover {
@@ -135,7 +134,7 @@ h1, h2, h3, h4 {
 }
 
 p {
-	font-size: 16px;
+	font-size: 18px;
 	line-height: 24px;
 	/* margin: 5px 0; */
 }
@@ -166,6 +165,7 @@ li {
 
 button {
 	font-weight: bold;
+	outline: none;
 }
 
 hr {
@@ -208,7 +208,7 @@ canvas {
 	background-color: #ffffff;
 	width: 500px;
 	border: 3px solid var(--footer);
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 }
 
 #results {
@@ -222,11 +222,35 @@ canvas {
 }
 
 .vector {
-	background: rgba(161, 54, 54, 0);
+	width: 100%;
+	height: 50px;
+	margin: 5px 0;
+	/* border: 1px solid #000000; */
 }
 
 .colorpicker {
 	width: 50px;
 	height: 50px;
 	border-radius: 25px;
+	float: left;
+}
+
+.activeCheck {
+	width: 25px;
+	height: 25px;
+	float: left;
+	margin: 15px 2%;
+}
+
+input[type=text] {
+	width: 50px;
+	height: 40px;
+	margin: 5px 0;
+	float: left;
+}
+
+.vector p {
+	font-size: 20px;
+	float: left; 
+	margin: 13px 0.5%;
 }

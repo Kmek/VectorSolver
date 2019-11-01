@@ -15,16 +15,26 @@
         </div>
 
 		<div id="page">
-				<div class="shadow center" id="graphDiv">
-					<canvas width="500px" height="500px"></canvas>
-					<div id="results">
-						<p>The resulting vector is <span>0</span> at <span>0</span> degrees or (<span>x</span>, <span>y</span>)</p>
-					</div>
+			<div class="shadow center" id="graphDiv">
+				<canvas width="500px" height="500px"></canvas>
+				<div id="results">
+					<p>The resulting vector is <span>0</span> at <span>0</span> degrees or (<span>x</span>, <span>y</span>)</p>
 				</div>
+			</div>
 
 			<div class="center" id="vectors">
-				<div class="vector lilShadow">
-					<button class="colorpicker"></button>
+				<div class="vector">
+					<button class="colorpicker lilShadow"></button>
+					<input type="checkbox" class="activeCheck"  checked>
+					<input type="text" class="inputMagnitude">
+					<p>magnitude at</p>
+					<input type="text" class="inputDegree">
+					<p>or</p>
+					<p>(</p>
+					<input type="text" class="inputX">
+					<p>,</p>
+					<input type="text" class="inputY">
+					<p>)</p>
 				</div>
 			</div>
 
