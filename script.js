@@ -1,6 +1,6 @@
 // JavaScript for Vector Solver
 
-/******************** Canvas ********************/
+/******************** Canvas Setup ********************/
 const canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
 // ctx.lineWidth = 2;
@@ -93,7 +93,6 @@ function toPolarDeg(xy) {
 }
 
 /******************** Vector Class ********************/
-
 class Vector {
     constructor (x, y) {
         this.x = x
@@ -120,4 +119,72 @@ class Vector {
         
         // TODO add toggle to checkbox check
     }
+}
+
+// Array of vectors
+var vectors = []
+
+// Redraw all vectors
+function redraw() {
+    for (i = 0; i < vectors.length; i++) {
+        if (vectors[i].active)
+            vectors[i].draw()
+    }
+}
+
+/******************** Adding A Vector ********************/
+// Parent div for all vectors
+const vectorDiv = document.getElementById("vectors");
+
+// Add a vector function 
+function addVector() {
+    let newVector = document.createElement("div");
+    newVector.setAttribute("class", "vector center lilShadow")
+
+    let colorpicker = document.createElement("button")
+    colorpicker.setAttribute("class", "colorpicker lilShadow")
+    newVector.appendChild(colorpicker)
+
+    let magnitudeInput = document.createElement("input")
+    magnitudeInput.setAttribute("type", "text")
+    // magnitudeInput.setAttribute("class", "inputMagnitude")
+    newVector.appendChild(magnitudeInput)
+
+    let magnitudeText = document.createElement("p")
+    magnitudeText.innerHTML = "magnitude at"
+    newVector.appendChild(magnitudeText)
+
+    let degreeInput = document.createElement("input")
+    degreeInput.setAttribute("type", "text")
+    newVector.appendChild(degreeInput)
+
+    let orText = document.createElement("p")
+    orText.innerHTML = "or ("
+    newVector.appendChild(orText)
+
+    let xInput = document.createElement("input")
+    xInput.setAttribute("type", "text")
+    newVector.appendChild(xInput)
+
+    let commaText = document.createElement("p")
+    commaText.innerHTML = ","
+    newVector.appendChild(commaText)
+
+    let yInput = document.createElement("input")
+    yInput.setAttribute("type", "text")
+    newVector.appendChild(yInput)
+
+    let closingText = document.createElement("p")
+    closingText.innerHTML = ")"
+    newVector.appendChild(closingText)
+
+    let checkbox = document.createElement("input")
+    checkbox.setAttribute("type", "checkbox")
+    checkbox.setAttribute("class", "activeCheck")
+    checkbox.checked = true;
+    // checkbox.setAttribute("onClick", toggleActive())
+    newVector.appendChild(checkbox)
+
+    // Add new vector div to vectors div
+    vectorDiv.appendChild(newVector)
 }
