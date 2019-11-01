@@ -13,92 +13,6 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
-/********** Header **********/
-#header {
-	background-image: linear-gradient(#0c78eb, var(--footer)/*#0056b3*/ );
-    width: 75%;
-    max-width: 725px;
-	min-width: 500px;
-	height: 60px;
-	text-align: center;
-    padding: 25px 25px 5px 25px;
-    margin-left: auto;
-    margin-right: auto;
-}
-#title {
-	color: #000000;
-	width: 100%;
-}
-
-/********** Page **********/
-#pageBackground {
-	background-color: #ffffff;
-	background-image: url("./media/grid-pattern.png");
-	background-repeat: repeat;
-}
-#page {
-	background-color: #eeeeee;
-	width: 75%;
-	max-width: 723px;
-	min-width: 500px;
-	min-height: 400px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 15px 25px;
-    text-align: left;
-    border-left: 1px solid var(--footer);
-    border-right: 1px solid var(--footer);
-}
-
-/********** Add Vector Button **********/
-#addVectorBtn {
-	background: none;
-	color: #000000;
-	border-radius: 25px;
-	border: 3px solid var(--footer);
-	padding: 5px 20px;
-	margin-top: 10px;
-	font-size: 16px;
-	outline: none;
-	transition-duration: 0.7s;
-}
-#addVectorBtn:hover {
-	background-color: var(--footer);
-	color: #ffffff;
-}
-
-/********** Footer **********/
-#footer{
-	background-color: var(--footer);
-	width: 100%;
-	height: 50px;
-	padding-top: 15px;
-}
-
-#footerText {
-	margin-left: 15px;
-	font-size: 16px;
-	font-weight: bold;
-	color: #000000;
-	float: left;
-}
-
-#githubBtn {
-	background: none;
-	margin-right: 15px;
-	color: #ffffff;
-	border-radius: 5px;
-	border: 3px solid var(--accent);
-	float: right;
-	padding: 5px;
-	font-size: 16px;
-	transition-duration: 0.7s;
-}
-#githubBtn:hover {
-	background-color: var(--accent);
-	color: #ffffff;
-}
-
 /********** Table Properties **********/
 table {
 	width: 100%;
@@ -204,6 +118,44 @@ canvas {
 	margin-right: auto;
 }
 
+/********** Header **********/
+#header {
+	background-image: linear-gradient(#0c78eb, var(--footer)/*#0056b3*/ );
+    width: 75%;
+    max-width: 725px;
+	min-width: 520px;
+	height: 60px;
+	text-align: center;
+    padding: 25px 0 5px 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+#title {
+	color: #000000;
+	width: 100%;
+}
+
+/********** Page **********/
+#pageBackground {
+	background-color: #ffffff;
+	background-image: url("./media/grid-pattern.png");
+	background-repeat: repeat;
+}
+#page {
+	background-color: #eeeeee;
+	width: 75%;
+	max-width: 723px;
+	min-width: 520px;
+	min-height: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 15px 0;
+    text-align: left;
+    border-left: 1px solid var(--footer);
+    border-right: 1px solid var(--footer);
+}
+
+/********** Main Divs **********/
 #graphDiv {
 	background-color: #ffffff;
 	width: 500px;
@@ -215,23 +167,32 @@ canvas {
 	width: 100%;
 	/* border-top: 3px solid var(--footer); */
 }
-/********** Vector **********/
 
-.lilShadow {
-	box-shadow: 0 0 20px 2px #000000;
-}
-
-.vector {
+#vectors {
 	width: 100%;
-	height: 50px;
-	margin: 5px 0;
 	/* border: 1px solid #000000; */
 }
 
-.colorpicker {
-	width: 50px;
+/********** Vector **********/
+.lilShadow {
+	box-shadow: 0 0 10px 2px #383838;
+}
+
+.vector {
+	background-color: var(--footer);
+	width: 500px;
 	height: 50px;
+	margin-top: 5px;
+	/* border: 1px solid var(--footer); */
 	border-radius: 25px;
+	float: center;
+}
+
+.colorpicker {
+	width: 30px;
+	height: 30px;
+	border-radius: 25px;
+	margin: 10px 10px;
 	float: left;
 }
 
@@ -239,18 +200,68 @@ canvas {
 	width: 25px;
 	height: 25px;
 	float: left;
-	margin: 15px 2%;
+	margin: 13px 4px;
 }
 
 input[type=text] {
 	width: 50px;
-	height: 40px;
-	margin: 5px 0;
+	height: 25px;
+	margin-top: 10px;
 	float: left;
 }
 
 .vector p {
+	color: #ffffff;
 	font-size: 20px;
 	float: left; 
-	margin: 13px 0.5%;
+	margin: 11px 4px;
+}
+
+/********** Add Vector Button **********/
+#addVectorBtn {
+	background: none;
+	color: #000000;
+	border-radius: 25px;
+	border: 3px solid var(--footer);
+	padding: 5px 20px;
+	margin-top: 10px;
+	font-size: 16px;
+	outline: none;
+	transition-duration: 0.7s;
+}
+#addVectorBtn:hover {
+	background-color: var(--footer);
+	color: #ffffff;
+}
+
+/********** Footer **********/
+#footer{
+	background-color: var(--footer);
+	width: 100%;
+	height: 50px;
+	padding-top: 15px;
+}
+
+#footerText {
+	margin-left: 15px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #000000;
+	float: left;
+}
+
+#githubBtn {
+	background: none;
+	margin-right: 15px;
+	color: #ffffff;
+	border-radius: 5px;
+	border: 3px solid var(--accent);
+	float: right;
+	padding: 5px;
+	font-size: 16px;
+	transition-duration: 0.7s;
+}
+#githubBtn:hover {
+	background-color: var(--accent);
+	color: #ffffff;
 }
