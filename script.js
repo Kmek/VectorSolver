@@ -47,16 +47,12 @@ function toDegrees(radians) {
 
 // For converting from polar to rectangular coordinates
 function toPolarX(radius, degrees) {
-    let centerOn = h/2
     var temp = radius * Math.cos(toRadians(degrees));
-    temp += centerOn;
     //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
 function toPolarY(radius, degrees) {
-    let centerOn = h/2
     let temp = radius * Math.sin(toRadians(degrees) * -1);
-    temp += centerOn;
     //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
@@ -67,17 +63,16 @@ function toPolar(radius, degrees) {
 
 // For getting the distance between two points
 function toPolarR(xy) {
-    let centerOn = [w/2, h/2]
-    let x = xy[0] - centerOn[0];
-    let y = xy[1] - centerOn[1];
+    let x = xy[0];
+    let y = xy[1];
     let r = Math.pow((Math.pow(x, 2) + Math.pow(y, 2)), 0.5);
     return (r);
 }
 // For getting the current degree of a rect coord relative to a center coord
 function toPolarDeg(xy) {
-    let centerOn = [w/2, h/2]
-    let x = xy[0] - centerOn[0];
-    let y = (xy[1] - centerOn[1]) * -1;
+    console.log(xy)
+    let x = xy[0];
+    let y = xy[1] * -1;
     let deg = toDegrees(Math.atan(y/x));
     
     if (x < 0) {
@@ -100,9 +95,9 @@ class Vector {
         this.x = x
         this.y = y
         this.id = id
-        this.magnitude = 0 //toPolarR([this.x, this.y])
-        this.degree = 0 //toPolarDeg([this.x, this.y])
-        this.color = "#000000"
+        this.magnitude = 0 
+        this.degree = 0 
+        this.color = "black"
         this.active = true
     }
 
@@ -111,7 +106,8 @@ class Vector {
     }
 
     draw() {
-        draw.line([w/2, h/2], [this.x, this.y], "black")
+        draw.line([w/2, h/2], [this.x + (w/2), this.y + (h/2)], this.color)
+        draw.dot([this.x + (w/2), this.y + (h/2)], 3, this.color)
     }
 
     toggleActive() {
@@ -128,14 +124,16 @@ class Vector {
         
         this.magnitude = vector.children[1].value
         this.degree = vector.children[3].value
+        if (this.degree > 360) 
+            this.degree = this.degree % 360
 
-        let coords = toPolar(this.magnitude, this.degree)
+        // let coords = toPolar(this.magnitude, this.degree)
 
-        this.x = coords[0]
-        this.y = coords[1]
+        this.x = toPolarX(this.magnitude, this.degree)
+        this.y = toPolarY(this.magnitude, this.degree)
 
-        vector.children[5].value = this.x - (w/2)
-        vector.children[7].value = this.y - (h/2)
+        vector.children[5].value = this.x * 1
+        vector.children[7].value = this.y * -1
 
         redraw()
     }
@@ -143,16 +141,14 @@ class Vector {
     calcMagDeg() {
         let vector = document.getElementById(this.id)
         
-        this.magnitude = vector.children[1].value
-        this.degree = vector.children[3].value
+        this.x = vector.children[5].value * 1
+        this.y = vector.children[7].value * -1
 
-        let coords = toPolar(this.magnitude, this.degree)
+        this.magnitude = toPolarR([this.x, this.y])
+        this.degree = toPolarDeg([this.x, this.y])
 
-        this.x = coords[0]
-        this.y = coords[1]
-
-        vector.children[5].value = this.x - (w/2)
-        vector.children[7].value = this.y - (h/2)
+        vector.children[1].value = this.magnitude
+        vector.children[3].value = this.degree
 
         redraw()
     }
@@ -213,7 +209,7 @@ function addVector() {
     newVector.appendChild(magnitudeInput)
 
     let magnitudeText = document.createElement("p")
-    magnitudeText.innerHTML = "magnitude at"
+    magnitudeText.innerHTML = "at"
     newVector.appendChild(magnitudeText)
 
     let degreeInput = document.createElement("input")
@@ -229,6 +225,7 @@ function addVector() {
     let xInput = document.createElement("input")
     xInput.setAttribute("type", "text")
     xInput.value = 0
+    xInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcMagDeg()"))
     newVector.appendChild(xInput)
 
     let commaText = document.createElement("p")
@@ -238,6 +235,7 @@ function addVector() {
     let yInput = document.createElement("input")
     yInput.setAttribute("type", "text")
     yInput.value = 0
+    yInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcMagDeg()"))
     newVector.appendChild(yInput)
 
     let closingText = document.createElement("p")
