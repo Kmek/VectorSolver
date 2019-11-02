@@ -28,13 +28,13 @@ const draw = {
         ctx.fillStyle = color;
         ctx.fill();
     },
+    erase: function() {
+        ctx.beginPath();
+        ctx.rect(0, 0, w, h);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    },
 }
-
-// Draw x and y axis
-ctx.lineWidth = 4;
-draw.line([w/2, 0], [w/2, h], "black")
-draw.line([0, h/2], [w, h/2], "black")
-ctx.lineWidth = 2;
 
 /******************** Polar Conversions ********************/
 // For converting between radians and degrees
@@ -46,20 +46,22 @@ function toDegrees(radians) {
 }
 
 // For converting from polar to rectangular coordinates
-function toPolarX(radius, degrees, centerOn) {
+function toPolarX(radius, degrees) {
+    let centerOn = h/2
     var temp = radius * Math.cos(toRadians(degrees));
     temp += centerOn;
     //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
-function toPolarY(radius, degrees, centerOn) {
+function toPolarY(radius, degrees) {
+    let centerOn = h/2
     let temp = radius * Math.sin(toRadians(degrees) * -1);
     temp += centerOn;
     //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
-function toPolar(radius, degrees, centerOn) {
-    let temp = [toPolarX(radius, degrees, centerOn[0]), toPolarY(radius, degrees, centerOn[1])];
+function toPolar(radius, degrees) {
+    let temp = [toPolarX(radius, degrees), toPolarY(radius, degrees)];
     return temp;
 }
 
@@ -94,11 +96,12 @@ function toPolarDeg(xy) {
 
 /******************** Vector Class ********************/
 class Vector {
-    constructor (x, y) {
+    constructor (x, y, id) {
         this.x = x
         this.y = y
-        this.magnitude = toPolarR([this.x, this.y])
-        this.degree = toPolarDeg([this.x, this.y])
+        this.id = id
+        this.magnitude = 0 //toPolarR([this.x, this.y])
+        this.degree = 0 //toPolarDeg([this.x, this.y])
         this.color = "#000000"
         this.active = true
     }
@@ -108,7 +111,7 @@ class Vector {
     }
 
     draw() {
-        // TODO
+        draw.line([w/2, h/2], [this.x, this.y], "black")
     }
 
     toggleActive() {
@@ -119,6 +122,40 @@ class Vector {
         
         // TODO add toggle to checkbox check
     }
+
+    calcXY() {
+        let vector = document.getElementById(this.id)
+        
+        this.magnitude = vector.children[1].value
+        this.degree = vector.children[3].value
+
+        let coords = toPolar(this.magnitude, this.degree)
+
+        this.x = coords[0]
+        this.y = coords[1]
+
+        vector.children[5].value = this.x - (w/2)
+        vector.children[7].value = this.y - (h/2)
+
+        redraw()
+    }
+
+    calcMagDeg() {
+        let vector = document.getElementById(this.id)
+        
+        this.magnitude = vector.children[1].value
+        this.degree = vector.children[3].value
+
+        let coords = toPolar(this.magnitude, this.degree)
+
+        this.x = coords[0]
+        this.y = coords[1]
+
+        vector.children[5].value = this.x - (w/2)
+        vector.children[7].value = this.y - (h/2)
+
+        redraw()
+    }
 }
 
 // Array of vectors
@@ -126,19 +163,42 @@ var vectors = []
 
 // Redraw all vectors
 function redraw() {
+    // Clear canvas
+    draw.erase()
+
+    // Draw x and y axis
+    ctx.lineWidth = 4;
+    draw.line([w/2, 0], [w/2, h], "black")
+    draw.line([0, h/2], [w, h/2], "black")
+    ctx.lineWidth = 2;
+
+    let totalX = 0
+    let totalY = 0
     for (i = 0; i < vectors.length; i++) {
-        if (vectors[i].active)
+        if (vectors[i].active) {
             vectors[i].draw()
+            totalX += vectors[i].x
+            totalY += vectors[i].y
+        }
     }
 }
+// Initial canvas lines
+redraw()
 
 /******************** Adding A Vector ********************/
 // Parent div for all vectors
 const vectorDiv = document.getElementById("vectors");
 
+function idIndex(string) {
+    return string.substring(6, string.length)
+}
+
 // Add a vector function 
 function addVector() {
+    let id = ("vector" + vectors.length)
+
     let newVector = document.createElement("div");
+    newVector.id = id
     newVector.setAttribute("class", "vector center lilShadow")
 
     let colorpicker = document.createElement("button")
@@ -147,7 +207,9 @@ function addVector() {
 
     let magnitudeInput = document.createElement("input")
     magnitudeInput.setAttribute("type", "text")
-    // magnitudeInput.setAttribute("class", "inputMagnitude")
+    magnitudeInput.value = 0
+    // magnitudeInput.setAttribute("OnInput", ("calcVectorXY(" + id + ")"))
+    magnitudeInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcXY()"))
     newVector.appendChild(magnitudeInput)
 
     let magnitudeText = document.createElement("p")
@@ -156,6 +218,8 @@ function addVector() {
 
     let degreeInput = document.createElement("input")
     degreeInput.setAttribute("type", "text")
+    degreeInput.value = 0
+    degreeInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcXY()"))
     newVector.appendChild(degreeInput)
 
     let orText = document.createElement("p")
@@ -164,6 +228,7 @@ function addVector() {
 
     let xInput = document.createElement("input")
     xInput.setAttribute("type", "text")
+    xInput.value = 0
     newVector.appendChild(xInput)
 
     let commaText = document.createElement("p")
@@ -172,6 +237,7 @@ function addVector() {
 
     let yInput = document.createElement("input")
     yInput.setAttribute("type", "text")
+    yInput.value = 0
     newVector.appendChild(yInput)
 
     let closingText = document.createElement("p")
@@ -187,4 +253,6 @@ function addVector() {
 
     // Add new vector div to vectors div
     vectorDiv.appendChild(newVector)
+
+    vectors.push(new Vector(0, 0, id))
 }
