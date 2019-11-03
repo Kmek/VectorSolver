@@ -36,19 +36,6 @@ const draw = {
     },
 }
 
-function getMaxMag() {
-    let maxMag = 0;
-    for (let i = 0; i < vectors.length; i++) {
-        if (vectors[i].active && vectors[i].magnitude > maxMag)
-            maxMag = vectors[i].magnitude
-    }
-
-    if (maxMag != 0) 
-        return maxMag
-
-    return (w/2)
-}
-
 /******************** Rounding Function ********************/
 const decBtn = document.getElementById("decBtn")
 var decimals = 2;
@@ -139,12 +126,13 @@ class Vector {
         this.id = id
         this.magnitude = 0 
         this.degree = 0 
-        this.color = "black"
+        this.color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
         this.active = true
+        this.colorChange()
     }
 
     colorChange() {
-        // TODO
+        // this.color = "blue"
     }
 
     draw(scale) {
@@ -208,6 +196,18 @@ class Vector {
 
 // Array of vectors
 var vectors = []
+
+function getMaxMag() {
+    let maxMag = 0;
+    for (let i = 0; i < vectors.length; i++)
+        if (vectors[i].active && Math.abs(vectors[i].magnitude) >= maxMag)
+            maxMag = vectors[i].magnitude
+
+    if (maxMag != 0) 
+        return maxMag
+
+    return (w/2)
+}
 
 // Redraw all vectors
 function redraw() {
