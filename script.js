@@ -128,11 +128,17 @@ class Vector {
         this.degree = 0 
         this.color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6)
         this.active = true
-        this.colorChange()
+        document.getElementById(this.id).children[0].value = this.color
     }
 
-    colorChange() {
-        // this.color = "blue"
+    // colorSet() {
+    //     document.getElementById(this.id).children[0].value = this.color
+    // }
+
+    changeColor() {
+        console.log("heeere")
+        this.color = document.getElementById(this.id).children[0].value
+        redraw()
     }
 
     draw(scale) {
@@ -214,13 +220,13 @@ function redraw() {
     // Clear canvas
     draw.erase()
     // Scale canvas for new vector values
-    let scale = ((w/2) / (getMaxMag() * 1.2))
+    let scale = ((w/2) / (getMaxMag() * 1.1))
 
     // Draw x and y axis
     ctx.lineWidth = 4;
     draw.line([w/2, 0], [w/2, h], "black")
     draw.line([0, h/2], [w, h/2], "black")
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
 
     let totalX = 0
     let totalY = 0
@@ -251,8 +257,11 @@ function addVector() {
     newVector.id = id
     newVector.setAttribute("class", "vector center lilShadow")
 
-    let colorpicker = document.createElement("button")
-    colorpicker.setAttribute("class", "colorpicker lilShadow")
+    // let colorpicker = document.createElement("button")
+    let colorpicker = document.createElement("input")
+    colorpicker.setAttribute("type", "color")
+    colorpicker.setAttribute("class", "lilShadow")
+    colorpicker.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].changeColor()"))
     newVector.appendChild(colorpicker)
 
     let magnitudeInput = document.createElement("input")
