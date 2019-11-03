@@ -36,6 +36,19 @@ const draw = {
     },
 }
 
+function getMaxMag() {
+    let maxMag = 0;
+    for (let i = 0; i < vectors.length; i++) {
+        if (vectors[i].active && vectors[i].magnitude > maxMag)
+            maxMag = vectors[i].magnitude
+    }
+
+    if (maxMag != 0) 
+        return maxMag
+
+    return (w/2)
+}
+
 /******************** Polar Conversions ********************/
 // For converting between radians and degrees
 function toRadians(degrees) {
@@ -105,9 +118,9 @@ class Vector {
         // TODO
     }
 
-    draw() {
-        draw.line([w/2, h/2], [this.x + (w/2), this.y + (h/2)], this.color)
-        draw.dot([this.x + (w/2), this.y + (h/2)], 3, this.color)
+    draw(scale) {
+        draw.line([w/2, h/2], [(this.x * scale) + (w/2), (this.y * scale) + (h/2)], this.color)
+        draw.dot([(this.x * scale) + (w/2), (this.y * scale) + (h/2)], 3, this.color)
     }
 
     toggleActive() {
@@ -126,8 +139,6 @@ class Vector {
         this.degree = vector.children[3].value
         if (this.degree > 360) 
             this.degree = this.degree % 360
-
-        // let coords = toPolar(this.magnitude, this.degree)
 
         this.x = toPolarX(this.magnitude, this.degree)
         this.y = toPolarY(this.magnitude, this.degree)
@@ -161,6 +172,8 @@ var vectors = []
 function redraw() {
     // Clear canvas
     draw.erase()
+    // Scale canvas for new vector values
+    let scale = ((w/2) / (getMaxMag() * 1.2))
 
     // Draw x and y axis
     ctx.lineWidth = 4;
@@ -172,7 +185,7 @@ function redraw() {
     let totalY = 0
     for (i = 0; i < vectors.length; i++) {
         if (vectors[i].active) {
-            vectors[i].draw()
+            vectors[i].draw(scale)
             totalX += vectors[i].x
             totalY += vectors[i].y
         }
