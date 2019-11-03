@@ -50,10 +50,10 @@ h1, h2, h3, h4 {
 p {
 	font-size: 18px;
 	line-height: 24px;
-	/* margin: 5px 0; */
+	margin: 5px 0;
 }
 
-mark {
+#results span {
 	background-color: #cccccc;
 	padding: 2px 5px;
 	font-family: "Courier New", Courier, monospace;
@@ -98,13 +98,6 @@ a {
 	/* color: black; */
 	color: var(--accent);
 	font-weight: bold;
-}
-
-canvas {
-    background-color: #ffffff;
-	border-bottom: 3px solid var(--footer);
-	/* border-bottom: none; */
-	margin: 0;
 }
 
 /********** Extra Components **********/
@@ -160,17 +153,26 @@ canvas {
 	background-color: #ffffff;
 	width: 500px;
 	border: 3px solid var(--footer);
-	margin-bottom: 15px;
+	margin-bottom: 5px;
+}
+
+canvas {
+    background-color: #ffffff;
+	border-bottom: 3px solid var(--footer);
+	margin: 0;
 }
 
 #results {
 	width: 100%;
-	/* border-top: 3px solid var(--footer); */
+}
+
+#equilibrium {
+	width: 100%;
+	border-top: 3px solid var(--footer);
 }
 
 #vectors {
 	width: 100%;
-	/* border: 1px solid #000000; */
 }
 
 /********** Vector **********/
@@ -214,6 +216,7 @@ input[type=number] {
 	float: left;
 	outline: none;
 }
+/* Remove arrows on side */
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 

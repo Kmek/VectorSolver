@@ -9,18 +9,22 @@ var w = ctx.canvas.width;
 var h = ctx.canvas.height;
 
 const draw = {
-    circle: function(xy, radius, color) {
-        ctx.beginPath();
-        ctx.arc(xy[0], xy[1], radius, 0, 2 * Math.PI);
-        ctx.strokeStyle = color;
-        ctx.stroke();
-    },
     line: function(xy1, xy2, color) {
         ctx.strokeStyle = color;
         ctx.beginPath();
         ctx.moveTo(xy1[0], xy1[1]);
         ctx.lineTo(xy2[0], xy2[1]);
         ctx.stroke();
+    },
+    dashedLine: function(xy1, xy2, color) {
+        draw.line(xy1, xy2, color)
+        for (let i = 0; i < 10; i += 2) {
+            let x1 = ((xy2[0] - xy1[0]) * ((i + 1) / 11)) + xy1[0]
+            let y1 = ((xy2[1] - xy1[1]) * ((i + 1) / 11)) + xy1[1]
+            let x2 = ((xy2[0] - xy1[0]) * ((i + 2) / 11)) + xy1[0]
+            let y2 = ((xy2[1] - xy1[1]) * ((i + 2) / 11)) + xy1[1]
+            draw.line([x1, y1], [x2, y2], "white")
+        }
     },
     dot: function(xy, radius, color) {
         ctx.beginPath();
@@ -33,7 +37,7 @@ const draw = {
         ctx.rect(0, 0, w, h);
         ctx.fillStyle = "white";
         ctx.fill();
-    },
+    }
 }
 
 /******************** Rounding Function ********************/
@@ -149,10 +153,6 @@ class Vector {
         redraw()
     }
 
-    // canCalc() {
-    //     if ()
-    // }
-
     calcXY() {
         let vector = document.getElementById(this.id)
 
@@ -197,11 +197,19 @@ class Vector {
 // Array of vectors
 var vectors = []
 
-function getMaxMag() {
-    let maxMag = 0;
+/******************** Redraw Main Function ********************/
+// Resulting vector spans
+var rMag = document.getElementById("rMag")
+var rDeg = document.getElementById("rDeg")
+var rX = document.getElementById("rX")
+var rY = document.getElementById("rY")
+
+// Find the largest magnitude from all active vectors
+function getMaxMag(start) {
+    let maxMag = Math.abs(start)
     for (let i = 0; i < vectors.length; i++)
         if (vectors[i].active && Math.abs(vectors[i].magnitude) >= maxMag)
-            maxMag = vectors[i].magnitude
+            maxMag = Math.abs(vectors[i].magnitude)
 
     if (maxMag != 0) 
         return maxMag
@@ -213,8 +221,6 @@ function getMaxMag() {
 function redraw() {
     // Clear canvas
     draw.erase()
-    // Scale canvas for new vector values
-    let scale = ((w/2) / (getMaxMag() * 1.1))
 
     // Draw x and y axis
     ctx.lineWidth = 4;
@@ -222,18 +228,39 @@ function redraw() {
     draw.line([0, h/2], [w, h/2], "black")
     ctx.lineWidth = 3;
 
+    // Calc resulting vector
     let totalX = 0
     let totalY = 0
     for (i = 0; i < vectors.length; i++) {
         if (vectors[i].active) {
-            vectors[i].draw(scale)
             totalX += vectors[i].x
             totalY += vectors[i].y
         }
     }
+    rX.innerHTML = round(totalX)
+    rY.innerHTML = round(totalY * -1)
+    rMag.innerHTML = round(toPolarR([totalX, totalY * -1]))
+    if (totalX == 0 && totalY == 0)
+        rDeg.innerHTML = 0
+    else 
+        rDeg.innerHTML = round(toPolarDeg([totalX, totalY]))
+
+    // Scale canvas for new vector values
+    let scale = ((w/2) / (getMaxMag(rMag.innerHTML) * 1.1))
+
+    // Draw other vectors
+    for (i = 0; i < vectors.length; i++)
+        if (vectors[i].active) 
+            vectors[i].draw(scale)
+
+    // Draw dashed resulting vector
+    draw.dashedLine([w/2, h/2], [(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)], "black");
+    draw.dot([(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)], 3, "black")
+
 }
 // Initial canvas lines
 redraw()
+// draw.dashedLine([100,50], [w/2, h/2], "purple");
 
 /******************** Adding A Vector ********************/
 // Parent div for all vectors
@@ -306,6 +333,5 @@ function addVector() {
 
     // Add new vector div to vectors div
     vectorDiv.appendChild(newVector)
-
     vectors.push(new Vector(0, 0, id))
 }
