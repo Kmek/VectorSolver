@@ -17,13 +17,13 @@ const draw = {
         ctx.stroke();
     },
     dashedLine: function(xy1, xy2, color) {
-        draw.line(xy1, xy2, color)
+        // draw.line(xy1, xy2, color)
         for (let i = 0; i < 10; i += 2) {
-            let x1 = ((xy2[0] - xy1[0]) * ((i + 1) / 11)) + xy1[0]
-            let y1 = ((xy2[1] - xy1[1]) * ((i + 1) / 11)) + xy1[1]
-            let x2 = ((xy2[0] - xy1[0]) * ((i + 2) / 11)) + xy1[0]
-            let y2 = ((xy2[1] - xy1[1]) * ((i + 2) / 11)) + xy1[1]
-            draw.line([x1, y1], [x2, y2], "white")
+            let x1 = ((xy2[0] - xy1[0]) * ((i + 1) / 10)) + xy1[0]
+            let y1 = ((xy2[1] - xy1[1]) * ((i + 1) / 10)) + xy1[1]
+            let x2 = ((xy2[0] - xy1[0]) * ((i + 2) / 10)) + xy1[0]
+            let y2 = ((xy2[1] - xy1[1]) * ((i + 2) / 10)) + xy1[1]
+            draw.line([x1, y1], [x2, y2], "black")
         }
     },
     dot: function(xy, radius, color) {
