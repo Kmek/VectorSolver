@@ -131,12 +131,7 @@ class Vector {
         document.getElementById(this.id).children[0].value = this.color
     }
 
-    // colorSet() {
-    //     document.getElementById(this.id).children[0].value = this.color
-    // }
-
     changeColor() {
-        console.log("heeere")
         this.color = document.getElementById(this.id).children[0].value
         redraw()
     }
@@ -151,8 +146,7 @@ class Vector {
             this.active = false
         else
             this.active = true
-        
-        // TODO add toggle to checkbox check
+        redraw()
     }
 
     // canCalc() {
@@ -257,7 +251,6 @@ function addVector() {
     newVector.id = id
     newVector.setAttribute("class", "vector center lilShadow")
 
-    // let colorpicker = document.createElement("button")
     let colorpicker = document.createElement("input")
     colorpicker.setAttribute("type", "color")
     colorpicker.setAttribute("class", "lilShadow")
@@ -267,7 +260,6 @@ function addVector() {
     let magnitudeInput = document.createElement("input")
     magnitudeInput.setAttribute("type", "number")
     magnitudeInput.value = 0
-    // magnitudeInput.setAttribute("OnInput", ("calcVectorXY(" + id + ")"))
     magnitudeInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcXY()"))
     newVector.appendChild(magnitudeInput)
 
@@ -309,7 +301,7 @@ function addVector() {
     checkbox.setAttribute("type", "checkbox")
     checkbox.setAttribute("class", "activeCheck")
     checkbox.checked = true;
-    // checkbox.setAttribute("onClick", toggleActive())
+    checkbox.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].toggleActive()"))
     newVector.appendChild(checkbox)
 
     // Add new vector div to vectors div
