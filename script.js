@@ -49,6 +49,36 @@ function getMaxMag() {
     return (w/2)
 }
 
+/******************** Rounding Function ********************/
+const decBtn = document.getElementById("decBtn")
+var decimals = 2;
+
+function round(num) {
+    if (num[num.length - 1] == ".")
+        return num
+
+    let zeroes = Math.pow(10, decimals)
+    let result = Math.round(num * zeroes) / zeroes
+    return result
+}
+
+function incDecimal() {
+    switch(decimals) {
+        case 0:
+            decBtn.innerHTML += "."
+        case 1:
+        case 2:
+        case 3: 
+            decimals++
+            decBtn.innerHTML += "0"
+            break;
+        default:
+            decimals = 0
+            decBtn.innerHTML = "0"
+            break;
+    }
+}
+
 /******************** Polar Conversions ********************/
 // For converting between radians and degrees
 function toRadians(degrees) {
@@ -83,7 +113,6 @@ function toPolarR(xy) {
 }
 // For getting the current degree of a rect coord relative to a center coord
 function toPolarDeg(xy) {
-    console.log(xy)
     let x = xy[0];
     let y = xy[1] * -1;
     let deg = toDegrees(Math.atan(y/x));
@@ -132,16 +161,24 @@ class Vector {
         // TODO add toggle to checkbox check
     }
 
+    // canCalc() {
+    //     if ()
+    // }
+
     calcXY() {
         let vector = document.getElementById(this.id)
+
+        // Round
+        vector.children[1].value = round(vector.children[1].value)
+        vector.children[3].value = round(vector.children[3].value)
         
         this.magnitude = vector.children[1].value
         this.degree = vector.children[3].value
         if (this.degree > 360) 
             this.degree = this.degree % 360
 
-        this.x = toPolarX(this.magnitude, this.degree)
-        this.y = toPolarY(this.magnitude, this.degree)
+        this.x = round(toPolarX(this.magnitude, this.degree))
+        this.y = round(toPolarY(this.magnitude, this.degree))
 
         vector.children[5].value = this.x * 1
         vector.children[7].value = this.y * -1
@@ -151,12 +188,16 @@ class Vector {
 
     calcMagDeg() {
         let vector = document.getElementById(this.id)
+
+        // Round
+        vector.children[5].value = round(vector.children[5].value)
+        vector.children[7].value = round(vector.children[7].value)
         
         this.x = vector.children[5].value * 1
         this.y = vector.children[7].value * -1
 
-        this.magnitude = toPolarR([this.x, this.y])
-        this.degree = toPolarDeg([this.x, this.y])
+        this.magnitude = round(toPolarR([this.x, this.y]))
+        this.degree = round(toPolarDeg([this.x, this.y]))
 
         vector.children[1].value = this.magnitude
         vector.children[3].value = this.degree
@@ -215,7 +256,7 @@ function addVector() {
     newVector.appendChild(colorpicker)
 
     let magnitudeInput = document.createElement("input")
-    magnitudeInput.setAttribute("type", "text")
+    magnitudeInput.setAttribute("type", "number")
     magnitudeInput.value = 0
     // magnitudeInput.setAttribute("OnInput", ("calcVectorXY(" + id + ")"))
     magnitudeInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcXY()"))
@@ -226,7 +267,7 @@ function addVector() {
     newVector.appendChild(magnitudeText)
 
     let degreeInput = document.createElement("input")
-    degreeInput.setAttribute("type", "text")
+    degreeInput.setAttribute("type", "number")
     degreeInput.value = 0
     degreeInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcXY()"))
     newVector.appendChild(degreeInput)
@@ -236,7 +277,7 @@ function addVector() {
     newVector.appendChild(orText)
 
     let xInput = document.createElement("input")
-    xInput.setAttribute("type", "text")
+    xInput.setAttribute("type", "number")
     xInput.value = 0
     xInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcMagDeg()"))
     newVector.appendChild(xInput)
@@ -246,7 +287,7 @@ function addVector() {
     newVector.appendChild(commaText)
 
     let yInput = document.createElement("input")
-    yInput.setAttribute("type", "text")
+    yInput.setAttribute("type", "number")
     yInput.value = 0
     yInput.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].calcMagDeg()"))
     newVector.appendChild(yInput)

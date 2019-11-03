@@ -203,7 +203,7 @@ canvas {
 	margin: 13px 4px;
 }
 
-input[type=text] {
+input[type=number] {
 	width: 75px;
 	height: 25px;
 	margin-top: 10px;
@@ -211,6 +211,12 @@ input[type=text] {
 	border: 1px solid #000000;
 	text-align: center;
 	float: left;
+	outline: none;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 .vector p {
@@ -221,7 +227,7 @@ input[type=text] {
 }
 
 /********** Add Vector Button **********/
-#addVectorBtn {
+.blueBtn {
 	background: none;
 	color: #000000;
 	border-radius: 25px;
@@ -232,7 +238,7 @@ input[type=text] {
 	outline: none;
 	transition-duration: 0.7s;
 }
-#addVectorBtn:hover {
+.blueBtn:hover {
 	background-color: var(--footer);
 	color: #ffffff;
 }
