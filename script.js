@@ -3,7 +3,6 @@
 /******************** Canvas Setup ********************/
 const canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-// ctx.lineWidth = 2;
 ctx.scale(1, 1);
 var w = ctx.canvas.width;
 var h = ctx.canvas.height;
@@ -76,18 +75,16 @@ function toRadians(degrees) {
     return (degrees * (Math.PI / 180));
 }
 function toDegrees(radians) {
-    return (radians * (180 / Math.PI)); //* 100) / 100 );
+    return (radians * (180 / Math.PI)); 
 }
 
 // For converting from polar to rectangular coordinates
 function toPolarX(radius, degrees) {
     var temp = radius * Math.cos(toRadians(degrees));
-    //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
 function toPolarY(radius, degrees) {
     let temp = radius * Math.sin(toRadians(degrees) * -1);
-    //temp = Math.round(temp * 100) / 100; 
     return (temp);
 }
 function toPolar(radius, degrees) {
@@ -260,7 +257,6 @@ function redraw() {
 }
 // Initial canvas lines
 redraw()
-// draw.dashedLine([100,50], [w/2, h/2], "purple");
 
 /******************** Adding A Vector ********************/
 // Parent div for all vectors
@@ -280,7 +276,6 @@ function addVector() {
 
     let colorpicker = document.createElement("input")
     colorpicker.setAttribute("type", "color")
-    colorpicker.setAttribute("class", "lilShadow")
     colorpicker.setAttribute("OnInput", ("vectors[idIndex(" + id + ".id)].changeColor()"))
     newVector.appendChild(colorpicker)
 
