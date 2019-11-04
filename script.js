@@ -321,7 +321,7 @@ function addVector() {
     newVector.appendChild(degreeInput)
 
     let orText = document.createElement("p")
-    orText.innerHTML = "or ("
+    orText.innerHTML = "&deg or ("
     newVector.appendChild(orText)
 
     let xInput = document.createElement("input")
