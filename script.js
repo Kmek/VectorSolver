@@ -257,7 +257,7 @@ function redraw() {
 
     // Calc equilibrium vector
     eX.innerHTML = rX.innerHTML * -1
-    eY.innerHTML = rY.innerHTML * -1
+    eY.innerHTML = rY.innerHTML
     eMag.innerHTML = rMag.innerHTML 
     if (rMag.innerHTML == 0)
         eDeg.innerHTML = 0
