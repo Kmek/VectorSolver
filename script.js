@@ -36,6 +36,12 @@ const draw = {
         ctx.rect(0, 0, w, h);
         ctx.fillStyle = "white";
         ctx.fill();
+    },
+    arrow: function(deg, xy, radius, color) {
+        let degree = 210 - (deg * -1)
+        draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
+        degree = 150 - (deg * -1)
+        draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
     }
 }
 
@@ -138,8 +144,10 @@ class Vector {
     }
 
     draw(scale) {
-        draw.line([w/2, h/2], [(this.x * scale) + (w/2), (this.y * scale) + (h/2)], this.color)
-        draw.dot([(this.x * scale) + (w/2), (this.y * scale) + (h/2)], 3, this.color)
+        let endXY = [(this.x * scale) + (w/2), (this.y * scale) + (h/2)]
+        draw.line([w/2, h/2], endXY, this.color)
+        draw.dot(endXY, 1, this.color)
+        draw.arrow(this.degree, endXY, 20, this.color)
     }
 
     toggleActive() {
@@ -250,7 +258,7 @@ function redraw() {
     // Calc equilibrium vector
     eX.innerHTML = rX.innerHTML * -1
     eY.innerHTML = rY.innerHTML * -1
-    eMag.innerHTML = rMag.innerHTML //* -1
+    eMag.innerHTML = rMag.innerHTML 
     if (rMag.innerHTML == 0)
         eDeg.innerHTML = 0
     else 
@@ -266,9 +274,11 @@ function redraw() {
             vectors[i].draw(scale)
 
     // Draw dashed resulting vector
-    draw.dashedLine([w/2, h/2], [(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)], "black");
-    draw.dot([(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)], 3, "black")
-
+    let endXY = [(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)]
+    draw.dashedLine([w/2, h/2], endXY, "black");
+    draw.dot(endXY, 1, "black")
+    if (rMag.innerHTML != 0) 
+        draw.arrow(rDeg.innerHTML, endXY, 15, "black")
 }
 // Initial canvas lines
 redraw()
