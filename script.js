@@ -196,10 +196,15 @@ var vectors = []
 
 /******************** Redraw Main Function ********************/
 // Resulting vector spans
-var rMag = document.getElementById("rMag")
-var rDeg = document.getElementById("rDeg")
-var rX = document.getElementById("rX")
-var rY = document.getElementById("rY")
+const rMag = document.getElementById("rMag")
+const rDeg = document.getElementById("rDeg")
+const rX = document.getElementById("rX")
+const rY = document.getElementById("rY")
+// Equilibrium vector spans
+const eMag = document.getElementById("eMag")
+const eDeg = document.getElementById("eDeg")
+const eX = document.getElementById("eX")
+const eY = document.getElementById("eY")
 
 // Find the largest magnitude from all active vectors
 function getMaxMag(start) {
@@ -241,6 +246,16 @@ function redraw() {
         rDeg.innerHTML = 0
     else 
         rDeg.innerHTML = round(toPolarDeg([totalX, totalY]))
+
+    // Calc equilibrium vector
+    eX.innerHTML = rX.innerHTML * -1
+    eY.innerHTML = rY.innerHTML * -1
+    eMag.innerHTML = rMag.innerHTML //* -1
+    if (rMag.innerHTML == 0)
+        eDeg.innerHTML = 0
+    else 
+        eDeg.innerHTML = round(toPolarDeg([eX.innerHTML, eY.innerHTML]))
+    
 
     // Scale canvas for new vector values
     let scale = ((w/2) / (getMaxMag(rMag.innerHTML) * 1.1))

@@ -101,10 +101,12 @@ canvas {
 
 #results {
 	width: 100%;
+	height: 60px;
 }
 
 #equilibrium {
 	width: 100%;
+	height: 60px;
 	border-top: 3px solid var(--footer);
 }
 
