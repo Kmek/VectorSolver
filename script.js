@@ -38,10 +38,12 @@ const draw = {
         ctx.fill();
     },
     arrow: function(deg, xy, radius, color) {
-        let degree = 210 - (deg * -1)
-        draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
-        degree = 150 - (deg * -1)
-        draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
+        if (!(xy[0] == w/2 && xy[1] == h/2)) {
+            let degree = 210 - (deg * -1)
+            draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
+            degree = 150 - (deg * -1)
+            draw.line(xy, [toPolarX(radius, degree) + xy[0], toPolarY(radius, degree) + xy[1]], color)
+        }
     }
 }
 
@@ -257,14 +259,13 @@ function redraw() {
 
     // Calc equilibrium vector
     eX.innerHTML = rX.innerHTML * -1
-    eY.innerHTML = rY.innerHTML
+    eY.innerHTML = rY.innerHTML * -1
     eMag.innerHTML = rMag.innerHTML 
     if (rMag.innerHTML == 0)
         eDeg.innerHTML = 0
     else 
-        eDeg.innerHTML = round(toPolarDeg([eX.innerHTML, eY.innerHTML]))
+        eDeg.innerHTML = round((Number(rDeg.innerHTML) + 180) % 360)
     
-
     // Scale canvas for new vector values
     let scale = ((w/2) / (getMaxMag(rMag.innerHTML) * 1.1))
 
@@ -277,8 +278,7 @@ function redraw() {
     let endXY = [(totalX * scale) + (w/2), (totalY * 1 * scale) + (h/2)]
     draw.dashedLine([w/2, h/2], endXY, "black");
     draw.dot(endXY, 1, "black")
-    if (rMag.innerHTML != 0) 
-        draw.arrow(rDeg.innerHTML, endXY, 15, "black")
+    draw.arrow(rDeg.innerHTML, endXY, 15, "black")
 }
 // Initial canvas lines
 redraw()
