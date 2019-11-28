@@ -1,0 +1,93 @@
+/*** CSS Styles unique to the Vector Solver Sum page ***/
+
+/********** Main Divs **********/
+#results {
+	width: 100%;
+	height: 60px;
+}
+
+#equilibrium {
+	width: 100%;
+	height: 60px;
+	border-top: 3px solid var(--footer);
+}
+
+#results span, #equilibrium span {
+	background-color: #cccccc;
+	padding: 2px 5px;
+	font-family: "Courier New", Courier, monospace;
+	border: 1px solid #ffffff;
+	border-radius: 2px;
+}
+
+#vectors {
+	width: 100%;
+}
+
+/********** Vector **********/
+.vector {
+	background-color: var(--footer);
+	width: 500px;
+	height: 50px;
+	margin-top: 5px;
+	/* border: 1px solid var(--footer); */
+	border-radius: 25px;
+	float: center;
+}
+
+input[type=color] {
+	width: 22px;
+	height: 22px;
+	/* border-radius: 25px; */
+	margin: 12px 5px 0 10px;
+	float: left;
+}
+
+.activeCheck {
+	width: 25px;
+	height: 25px;
+	float: right;
+	margin-top: 13px;
+	margin-right: 15px;
+}
+
+input[type=number] {
+	width: 75px;
+	height: 25px;
+	margin-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #000000;
+	text-align: center;
+	float: left;
+	outline: none;
+}
+/* Remove arrows on side */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.vector p {
+	color: #ffffff;
+	font-size: 20px;
+	float: left; 
+	margin: 11px 4px;
+}
+
+/********** Add Vector Button **********/
+.blueBtn {
+	background: none;
+	color: #000000;
+	border-radius: 25px;
+	border: 3px solid var(--footer);
+	padding: 10px 20px;
+	margin-top: 10px;
+	font-size: 16px;
+	outline: none;
+	transition-duration: 0.7s;
+}
+.blueBtn:hover {
+	background-color: var(--footer);
+	color: #ffffff;
+}
