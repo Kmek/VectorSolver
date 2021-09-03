@@ -50,15 +50,45 @@ a {
     width: 75%;
     max-width: 725px;
 	min-width: 520px;
-	height: 60px;
+	min-height: 60px;
 	text-align: center;
-    padding: 25px 0 5px 0;
+	/* padding: t, r, b, l */
+    padding-top: 25px;
     margin-left: auto;
     margin-right: auto;
 }
 #title {
 	color: #ffffff;
 	width: 100%;
+}
+
+/********** Navigation **********/
+
+#navDiv {
+	width: calc(100% - 2px);
+	margin-top: 5px;
+	text-align: left;
+
+	border-left: 1px solid var(--footer);
+    border-right: 1px solid var(--footer);
+	border-bottom: 1px solid #eeeeee;
+}
+
+#navDiv button {
+	margin: 0 -4px 0 5px;
+	padding: 5px 10px;
+
+	background-color: #eeeeee;
+	/* color: var(--footer); */
+	font-weight: normal;
+
+	border-radius: 7px 7px 0 0;
+	border: 1px solid black;
+	border-bottom: 2px solid var(--footer);
+}
+
+#navDiv button:focus { 
+	border-bottom: 2px solid #eeeeee;
 }
 
 /********** Page **********/
@@ -75,7 +105,7 @@ a {
 	min-height: 400px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 15px 0;
+	padding: 20px 0;
     text-align: left;
     border-left: 1px solid var(--footer);
     border-right: 1px solid var(--footer);

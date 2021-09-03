@@ -9,12 +9,17 @@
 	<link href="styles.css" rel="stylesheet"/>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="./script.js"></script>
+	<script src="./loadFile.js"></script>
 </head>
 <body>
 	<div id="pageBackground">
         <div id="header">
-            <h1 id="title">Vector Solver</h1>
+			<h1 id="title">Vector Solver</h1>
+			<div id="navDiv">
+				<button autofocus onclick="loadFile('sum.html')">Vector Sum</button>
+				<button onclick="loadFile('projectile.html')">Projectile Motion</button>
+				<button>Test</button>
+			</div>
         </div>
 
 		<div id="page">
@@ -26,5 +31,8 @@
 		<button id="decBtn" class="footerBtn" onClick="incDecimal()" style="float:left; margin-right: 5px;">0.00</button>
 		<a href="https://github.com/Kmek/VectorSolver" target="_blank"><button class="footerBtn" style="float: right;">View on GitHub</button></a>
 	</div>
+
+	<script src="./script.js"></script>
+	<script src="./sum.js"></script>
 </body>
 </html>

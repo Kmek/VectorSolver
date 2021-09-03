@@ -1,9 +1,11 @@
 // JavaScript for Vector Solver Helpful
-
-/******************** Load Files Using JQuery ********************/
-function loadFile(filename) {
-    $('#page').load(filename+"#");
-}
+console.log("script.js imported")
+/******************** Canvas Setup ********************/
+const canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+ctx.scale(1, 1);
+var w = ctx.canvas.width;
+var h = ctx.canvas.height;
 
 /******************** Canvas Draw Functions ********************/
 const draw = {

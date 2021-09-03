@@ -1,12 +1,5 @@
 // JavaScript Vector Solver Sum scripts
-
-/******************** Canvas Setup ********************/
-const canvas = document.getElementById("myCanvas");
-var ctx = canvas.getContext("2d");
-ctx.scale(1, 1);
-var w = ctx.canvas.width;
-var h = ctx.canvas.height;
-
+console.log("sum.js imported")
 /******************** Vector Class ********************/
 class Vector {
     constructor (x, y, id) {
